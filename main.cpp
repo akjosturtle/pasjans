@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+
+
 class Karta {
 public:
     Karta();
@@ -45,7 +47,7 @@ public:
 private:
     char kolor;
     char znak;
-    char wartosc
+    char wartosc;
 };
 
 Karta::Karta() {
