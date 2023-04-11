@@ -47,7 +47,7 @@ public:
     }
 
 private:
-    char kolor;
+    int kolor;
     char znak;
     char wartosc;
 };
@@ -58,10 +58,27 @@ Karta::Karta() {
     znak = '0';
     wartosc = '0';
 }
+
 Karta::~Karta() {
     std::cout << "nara";
 }
 
+void los1(class Karta** talia){
+    srand(time(NULL));
+    int x = rand() % 52;
+    int kol = talia[x]->pobierzkolor();
+    char war = talia[x]->pobierzwartosc();
+    char znak = talia[x]->pobierzznak();
+    std::cout << "dupa1: " <<  kol << war << znak << '\n';
+}
+void los2(class Karta** talia){
+    srand(time(NULL));
+    int x = rand() % 52;
+    int kol = talia[x]->pobierzkolor();
+    char war = talia[x]->pobierzwartosc();
+    char znak = talia[x]->pobierzznak();
+    std::cout << "dupa2: " <<  kol << war << znak << '\n';
+}
 
 int main() {
     Karta* talia[52];
@@ -78,7 +95,11 @@ int main() {
     for (int i = 0; i < 52; i++) {
         std::cout << talia[i]->pobierzkolor() << ", " << talia[i]->pobierzwartosc() << ", " << talia[i]->pobierzznak() << std::endl;
     }
+    std::thread l1(los1, talia);
+    std::thread l2(los2, talia);
+    
+    l1.join();
+    l2.join();
+
     delete *talia;
-
-
 }
