@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <thread>           //std:thread
+#include <functional>       //std::ref
 
 
 
@@ -16,7 +18,7 @@ public:
     char pobierzznak() { return znak; }
     char pobierzwartosc() { return wartosc; }
 
-    void przypiszkolor(int kolorek) {
+    void przypiszkolor(int kolorek) {    //// !!!!!!!!!!! do poprawy (rozdzielic  na Karta::funkcja.............)
         kolor = kolorek;
     }
     void przypiszznak(int znaczek) {
