@@ -165,45 +165,54 @@ void gra(std::vector<Karta> &talia){
          
     int ZJakiej;
     int naJaka;
+    bool kupkaCzyNie;
     std::cin >> ZJakiej;
     std::cin >> naJaka;
     Karta kartaW_rece;
 
+    //branie karty z kupki
     if(ZJakiej >= 0 && ZJakiej <= 7){
         kartaW_rece = kupka[ZJakiej].back();
+        kupkaCzyNie = true;
     }
     else if(ZJakiej > 7 && ZJakiej < 12){
         if(odkladanie[ZJakiej-8].pobierzwartosc()!=0){
             kartaW_rece = odkladanie[ZJakiej-8];
+            kupkaCzyNie = false;
         }
     }
     else continue;
 
-    if(naJaka >= 0 && naJaka <= 7){
+    //odkladanie karty na inna kupke
+    if(naJaka >= 0 && naJaka <= 7){ //na kupke kart
        if(kartaW_rece.pobierzwartosc() == kupka[naJaka].back().pobierzwartosc() - 1 ){
             if(kartaW_rece.pobierzkolor() != kupka[naJaka].back().pobierzkolor()){
-                kupka[ZJakiej].pop_back();
                 kupka[naJaka].push_back(kartaW_rece);
+                if(kupkaCzyNie) kupka[ZJakiej].pop_back();
+                else odkladanie[ZJakiej].przypiszwartosc(0);
             }
             else continue;
        }
        else continue;
     }
-    else if(naJaka > 7 && naJaka < 12){
+    else if(naJaka > 7 && naJaka < 12){ //na kupke pomocniczą
         if(odkladanie[naJaka-8].pobierzwartosc()==0){
-            kupka[ZJakiej].pop_back();
             odkladanie[naJaka-8] = kartaW_rece;
+            if(kupkaCzyNie) kupka[ZJakiej].pop_back();
+            else odkladanie[ZJakiej].przypiszwartosc(0);
         }
     }
-    else if(naJaka > 12 && naJaka < 16){
+    else if(naJaka >= 12 && naJaka <= 15){ //na kupke koncowa
         if(kartaW_rece.pobierzwartosc() == kupka_koncowa[naJaka-12].pobierzwartosc() + 1){
             if(kartaW_rece.pobierzwartosc() == 1){
-                kupka[ZJakiej].pop_back();
                 kupka_koncowa[naJaka-12] = kartaW_rece;
+                if(kupkaCzyNie) kupka[ZJakiej].pop_back();
+                else odkladanie[ZJakiej].przypiszwartosc(0);
             }
             else if(char(kartaW_rece.pobierzznak()) == char(kupka_koncowa[naJaka-12].pobierzznak())){
-                kupka[ZJakiej].pop_back();
                 kupka_koncowa[naJaka-12] = kartaW_rece;
+                if(kupkaCzyNie) kupka[ZJakiej].pop_back();
+                else odkladanie[ZJakiej].przypiszwartosc(0);
             }
             else continue;
         }
@@ -290,11 +299,7 @@ void tasowanie(std::vector<Karta> &talia){
 
 int main() {
     std::vector<Karta> talia;
-    
-
-
     int a = 1;
-    
     // for (int i = 0; i < 52; i++) {
     //     std::cout << talia[i].pobierzkolor() << ", " << talia[i].pobierzwartosc() << ", " << talia[i].pobierzznak() << std::endl;
     // }
@@ -304,60 +309,9 @@ int main() {
     std::thread t1(tasowanie, std::ref(talia));
     t1.join();
 
-    // for (int i = 0; i < 52; i++) {
-    //     std::cout << talia[i].pobierzkolor() << ", " << talia[i].pobierzwartosc() << ", " << talia[i].pobierzznak() << std::endl;
-    // }
-    
     // gra(talia);
     a = menu();
     //std::cout << a;
     if (a == 1)gra(talia);
     } while(a != 0);
 }
-
-// for(int i = 0; i < ik; i++){
-    //     std::cout << "kupka" << i << '\n';
-    //     for(int j = 0; j < kupka[i].size(); j++){
-    //         std::cout << kupka[i][j].pobierzwartosc() << kupka[i][j].pobierzznak() << '\n';
-    //     }
-    // }
-
-    // switch (ZJakiej)
-    // {
-    // case 0:
-        
-    //     break;
-    // case 1:
-    //     break;
-    
-    // case 2:
-    //     break;
-    
-    // case 3:
-    //     break;
-    
-    // case 4:
-    //     break;
-    
-    // case 5:
-    //     break;
-    // case 6:
-    //     break;
-    
-    // case 7:
-    //     break;
-    
-    // case 8:
-    //     break;
-    
-    // case 9:
-    //     break;
-    
-    // case 10:
-    //     break;
-
-    // case 11:
-    
-    // default:
-    //     break;
-    // }
