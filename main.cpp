@@ -145,14 +145,8 @@ void piszmenu(int a){
         }
 }
 
-int main() {
-    Karta* talia[52];
-    int a = 0;
-    int x = 0;
-    char y = '\0';
-    char z = '\0';
-    int kt = 0;
-    for (int i = 0; i < 4; i++) {
+void inicjalizacjaTalii(class Karta** talia){
+for (int i = 0; i < 4; i++) {
 
         for (int j = 1; j < 14; j++) {
             talia[i * 13 + j - 1] = new Karta;
@@ -161,6 +155,17 @@ int main() {
             talia[i * 13 + j - 1]->przypiszznak(i);
         }
     }
+}
+
+int main() {
+    Karta* talia[52];
+    inicjalizacjaTalii(talia);
+    int a = 0;
+    int x = 0;
+    char y = '\0';
+    char z = '\0';
+    int kt = 0;
+    
     for (int i = 0; i < 52; i++) {
         std::cout << talia[i]->pobierzkolor() << ", " << talia[i]->pobierzwartosc() << ", " << talia[i]->pobierzznak() << std::endl;
     }
