@@ -91,8 +91,9 @@ void wyswietlanie(std::vector<Karta> kupka[ik], Karta kupka_docelowa[4], Karta o
     using std::cout;
     using std::endl;
     int max = 0;
-    cout << endl << "  -------------------------------------------------" << endl;
-    cout << "   ";
+    cout << endl <<" |  8  |  9  | 10  | 11  |||  12 |  13 |  14 |  15 |" << endl;
+    cout << "  -------------------------------------------------" << endl;
+    cout << " | ";
     for(int i = 0; i < 4; i++){
         if(odkladanie[i].pobierzwartosc()!=0){
             wyswietlwartosci(odkladanie[i].pobierzwartosc());
@@ -103,7 +104,7 @@ void wyswietlanie(std::vector<Karta> kupka[ik], Karta kupka_docelowa[4], Karta o
             cout << std:: setw(3) << " ";
         cout << " | ";
     }
-    cout << "--|  ";
+    cout << "| ";
     for(int i = 0; i < 4; i++){
         if(kupka_docelowa[i].pobierzwartosc()!=0){
             wyswietlwartosci(kupka_docelowa[i].pobierzwartosc());
@@ -115,6 +116,7 @@ void wyswietlanie(std::vector<Karta> kupka[ik], Karta kupka_docelowa[4], Karta o
         cout << " | ";
     }
     cout << endl;
+    cout <<"  -------------------------------------------------" << endl;
     cout <<"  -------------------------------------------------" << endl;
 
     for(int j = 0; j < 8; j++){
@@ -136,7 +138,8 @@ void wyswietlanie(std::vector<Karta> kupka[ik], Karta kupka_docelowa[4], Karta o
         }
         cout << endl;
     }
-    // cout <<" | " << endl;
+    cout << "  -------------------------------------------------" << endl;
+    cout <<"  |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |" << endl;
     // cout <<"" << endl;
     // cout <<"" << endl;
     // cout <<"" << endl;
@@ -208,6 +211,7 @@ void gra(std::vector<Karta> &talia){
                 kupka_koncowa[naJaka-12] = kartaW_rece;
                 if(kupkaCzyNie) kupka[ZJakiej].pop_back();
                 else odkladanie[ZJakiej].przypiszwartosc(0);
+
             }
             else if(char(kartaW_rece.pobierzznak()) == char(kupka_koncowa[naJaka-12].pobierzznak())){
                 kupka_koncowa[naJaka-12] = kartaW_rece;
@@ -265,11 +269,11 @@ void piszmenu(int a){
             break;
         case 2:
             cout << "Sterowanie:" << endl;
-            cout << "A, S, D, F, G, H, J, K - wybierane kart z pola gry (od lewej)" << endl;
-            cout << "Q, W, E, R - wybieranie kart/miejsc sposrod grupy pol pomocniczych" << endl;
-            cout << "Z, X, C, V - Pola docelowe" << endl;
-            cout << "Ruch nalezy wykonac wpisujac kombinacje 2 znakow" << endl;
-            cout << "np. AQ - ruch przenosi karte z pola gry A do pola pomocniczego Q" << endl;
+            cout << "0-7 - wybierane kart z pola gry (od lewej)" << endl;
+            cout << "8-11 - wybieranie kart/miejsc sposrod grupy pol pomocniczych" << endl;
+            cout << "12-15 - Pola docelowe" << endl;
+            cout << "Ruch nalezy wykonac wpisujac kombinacje 2 znakow oddzielonych spacja" << endl;
+            cout << "np. 0 8 - ruch przenosi karte z pola gry 0 do pola pomocniczego 8" << endl;
             cout << "" << endl;
             cout << "0 - powrot do menu gry" << endl;
             cout << "" << endl;
