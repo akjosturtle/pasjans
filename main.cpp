@@ -3,15 +3,12 @@
 
 #include <iostream>
 #include <vector>
-#include <string>
 #include <thread>           //std:thread
 #include <functional>       //std::ref
-#include <vector>
 #include <algorithm>
 #include <iterator>
 #include <random>
-#include <cstring>
-//#include <conio.h>
+#include <iomanip>
 //#include "menu.hpp"
 
 const int ik = 8;
@@ -59,9 +56,91 @@ Karta::Karta() {
 Karta::~Karta() {
     std::cout << " ";
 }
+void wyswietlwartosci(int x){
+    using std::cout;
+    cout << std::setw(2);
+    switch(x){
+                case 1: cout << "A";
+                    break;
+                case 11: cout << "J";
+                    break;
+                case 12: cout << "Q";
+                    break;
+                case 13: cout << "K";
+                    break;
+                default: cout << x;
+                    break;
+            }
+}
+void wyswietlznaczki(char x){
+    using std::cout;
+    if(x == 's'){
+        cout << char(3);
+    }
+    else if(x == 'k'){
+        cout << char(4);
+    }
+    else if(x == 't'){
+        cout << char(5);
+    }
+    else if(x == 'p'){
+        cout << char(6);
+    }
+}
+void wyswietlanie(std::vector<Karta> kupka[ik], Karta kupka_docelowa[4], Karta odkladanie[4]){
+    using std::cout;
+    using std::endl;
+    int max = 0;
+    cout << endl << "  -------------------------------------------------" << endl;
+    cout << "   ";
+    for(int i = 0; i < 4; i++){
+        if(odkladanie[i].pobierzwartosc()!=0){
+            wyswietlwartosci(odkladanie[i].pobierzwartosc());
+            //wyswietlznaczki(odkladanie[i].pobierzznak());
+            cout << odkladanie[i].pobierzznak();
+        }
+        else
+            cout << std:: setw(3) << " ";
+        cout << " | ";
+    }
+    cout << "--|  ";
+    for(int i = 0; i < 4; i++){
+        if(kupka_docelowa[i].pobierzwartosc()!=0){
+            wyswietlwartosci(kupka_docelowa[i].pobierzwartosc());
+            //wyswietlznaczki(kupka_docelowa[i].pobierzznak());
+            cout << kupka_docelowa[i].pobierzznak();
+        }
+        else
+            cout << std:: setw(3) << " ";
+        cout << " | ";
+    }
+    cout << endl;
+    cout <<"  -------------------------------------------------" << endl;
 
-void sterowanie(){
+    for(int j = 0; j < 8; j++){
+        if(max < kupka[j].size())
+        max = kupka[j].size();
+    }
     
+    for(int i = 0; i < max; i++){
+        cout << "  | ";
+        for(int j = 0; j < 8; j++){
+            if(kupka[j].size() > i){                    //mozliwe wycieki
+                wyswietlwartosci(kupka[j][i].pobierzwartosc());
+                //wyswietlznaczki(kupka[j][i].pobierzznak());
+                cout << kupka[j][i].pobierzznak();
+            }
+            else 
+                cout << std::setw(3) << "  ";
+            cout << " | ";
+        }
+        cout << endl;
+    }
+    // cout <<" | " << endl;
+    // cout <<"" << endl;
+    // cout <<"" << endl;
+    // cout <<"" << endl;
+
 }
 
 void gra(std::vector<Karta> &talia){
@@ -80,9 +159,10 @@ void gra(std::vector<Karta> &talia){
         talia.pop_back();
         }  
     }
+    wyswietlanie(kupka, kupka_koncowa, odkladanie); 
     while (true)
     {
-          
+         
     int ZJakiej;
     int naJaka;
     std::cin >> ZJakiej;
@@ -111,15 +191,18 @@ void gra(std::vector<Karta> &talia){
     }
     else if(naJaka > 7 && naJaka < 12){
         if(odkladanie[naJaka-8].pobierzwartosc()==0){
+            kupka[ZJakiej].pop_back();
             odkladanie[naJaka-8] = kartaW_rece;
         }
     }
     else if(naJaka > 12 && naJaka < 16){
         if(kartaW_rece.pobierzwartosc() == kupka_koncowa[naJaka-12].pobierzwartosc() + 1){
             if(kartaW_rece.pobierzwartosc() == 1){
+                kupka[ZJakiej].pop_back();
                 kupka_koncowa[naJaka-12] = kartaW_rece;
             }
             else if(char(kartaW_rece.pobierzznak()) == char(kupka_koncowa[naJaka-12].pobierzznak())){
+                kupka[ZJakiej].pop_back();
                 kupka_koncowa[naJaka-12] = kartaW_rece;
             }
             else continue;
@@ -127,6 +210,7 @@ void gra(std::vector<Karta> &talia){
         else continue;
     }
     else continue;
+    wyswietlanie(kupka, kupka_koncowa, odkladanie); 
     }
   
 }
@@ -206,28 +290,29 @@ void tasowanie(std::vector<Karta> &talia){
 
 int main() {
     std::vector<Karta> talia;
+    
+
+
+    int a = 1;
+    
+    // for (int i = 0; i < 52; i++) {
+    //     std::cout << talia[i].pobierzkolor() << ", " << talia[i].pobierzwartosc() << ", " << talia[i].pobierzznak() << std::endl;
+    // }
+    do{
     inicjalizacjaTalii(talia);
-
-
-    int a = 0;
-    
-    for (int i = 0; i < 52; i++) {
-        std::cout << talia[i].pobierzkolor() << ", " << talia[i].pobierzwartosc() << ", " << talia[i].pobierzznak() << std::endl;
-    }
-
-    
     //tasowanie
     std::thread t1(tasowanie, std::ref(talia));
     t1.join();
 
-    for (int i = 0; i < 52; i++) {
-        std::cout << talia[i].pobierzkolor() << ", " << talia[i].pobierzwartosc() << ", " << talia[i].pobierzznak() << std::endl;
-    }
+    // for (int i = 0; i < 52; i++) {
+    //     std::cout << talia[i].pobierzkolor() << ", " << talia[i].pobierzwartosc() << ", " << talia[i].pobierzznak() << std::endl;
+    // }
     
-    gra(talia);
-    //a = menu();
+    // gra(talia);
+    a = menu();
     //std::cout << a;
-    //if (a == 1)gra();
+    if (a == 1)gra(talia);
+    } while(a != 0);
 }
 
 // for(int i = 0; i < ik; i++){
