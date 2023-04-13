@@ -221,14 +221,14 @@ void gra(std::vector<Karta> &talia){
     }
     else if(naJaka > 11 && naJaka <= 15){ //na kupke koncowa
         naJaka -= 12;
-        if(kartaW_rece.pobierzwartosc() == kupka_koncowa[naJaka-12].pobierzwartosc() + 1){
+        if(kartaW_rece.pobierzwartosc() == kupka_koncowa[naJaka].pobierzwartosc() + 1){
             if(kartaW_rece.pobierzwartosc() == 1){
                 kupka_koncowa[naJaka] = kartaW_rece;
                 if(kupkaCzyNie) kupka[ZJakiej].pop_back();
                 else odkladanie[ZJakiej].przypiszwartosc(0);
 
             }
-            else if(char(kartaW_rece.pobierzznak()) == char(kupka_koncowa[naJaka-12].pobierzznak())){
+            else if(char(kartaW_rece.pobierzznak()) == char(kupka_koncowa[naJaka].pobierzznak())){
                 kupka_koncowa[naJaka] = kartaW_rece;
                 if(kupkaCzyNie) kupka[ZJakiej].pop_back();
                 else odkladanie[ZJakiej].przypiszwartosc(0);
