@@ -56,6 +56,17 @@ Karta::Karta() {
 Karta::~Karta() {
     std::cout << " ";
 }
+bool wygrana(Karta kupka_docelowa[4]){
+     int w = 0;
+    for(int i = 0; i < 4; i++)
+        if(kupka_docelowa[i].pobierzwartosc() == 13)
+            w++;
+    if(w == 4)
+        return 0;
+    else 
+        return 1;
+
+}
 void wyswietlwartosci(int x){
     using std::cout;
     cout << std::setw(2);
@@ -163,13 +174,14 @@ void gra(std::vector<Karta> &talia){
         }  
     }
     wyswietlanie(kupka, kupka_koncowa, odkladanie); 
-    while (true)
-    {
-         
     int ZJakiej;
     int naJaka;
     bool kupkaCzyNie;
+    while (wygrana(kupka_koncowa))
+    {
     std::cin >> ZJakiej;
+    if(ZJakiej == 999)
+        break;
     std::cin >> naJaka;
     Karta kartaW_rece;
 
@@ -269,11 +281,13 @@ void piszmenu(int a){
             break;
         case 2:
             cout << "Sterowanie:" << endl;
+            cout << "s - kier(serce), k - karo, t - trefl, p - pik" << endl;
             cout << "0-7 - wybierane kart z pola gry (od lewej)" << endl;
             cout << "8-11 - wybieranie kart/miejsc sposrod grupy pol pomocniczych" << endl;
             cout << "12-15 - Pola docelowe" << endl;
             cout << "Ruch nalezy wykonac wpisujac kombinacje 2 znakow oddzielonych spacja" << endl;
             cout << "np. 0 8 - ruch przenosi karte z pola gry 0 do pola pomocniczego 8" << endl;
+            cout << "wpisanie 999 podczas rozgrywki konczy gre" << endl;
             cout << "" << endl;
             cout << "0 - powrot do menu gry" << endl;
             cout << "" << endl;
@@ -316,6 +330,7 @@ int main() {
     // gra(talia);
     a = menu();
     //std::cout << a;
-    if (a == 1)gra(talia);
+    if (a == 1)
+        gra(talia);
     } while(a != 0);
 }
