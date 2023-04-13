@@ -98,12 +98,14 @@ void wyswietlznaczki(char x){
         cout << char(6);
     }
 }
-void wyswietlanie(std::vector<Karta> kupka[ik], Karta kupka_docelowa[4], Karta odkladanie[4]){
+void wyswietlanie(std::vector<Karta> kupka[ik], Karta kupka_docelowa[4], Karta odkladanie[4], int ile){
     using std::cout;
     using std::endl;
     int max = 0;
-    cout << endl <<" |  8  |  9  | 10  | 11  |||  12 |  13 |  14 |  15 |" << endl;
-    cout << "  -------------------------------------------------" << endl;
+    cout << "  _________________________________________________" << endl;
+    cout << " |||||    P A S J A N S     F R E E C E L L    |||||" << endl;
+    cout <<" |  8  |  9  | 10  | 11  |||  12 |  13 |  14 |  15 |" << endl;
+    cout << " >-------------------------------------------------<" << endl;
     cout << " | ";
     for(int i = 0; i < 4; i++){
         if(odkladanie[i].pobierzwartosc()!=0){
@@ -149,12 +151,11 @@ void wyswietlanie(std::vector<Karta> kupka[ik], Karta kupka_docelowa[4], Karta o
         }
         cout << endl;
     }
+    cout << "  >-----------------------------------------------<" << endl;
+    cout << "  |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |" << endl;
+    cout << "  |-----------------------------------------------|" << endl;
+    cout << "  | wykonano " << std::setw(5)<< ile << " ruchow | M.S.| B.T.| ACiR 2023 |" << endl;
     cout << "  -------------------------------------------------" << endl;
-    cout <<"  |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |" << endl;
-    // cout <<"" << endl;
-    // cout <<"" << endl;
-    // cout <<"" << endl;
-
 }
 
 void gra(std::vector<Karta> &talia){
@@ -173,10 +174,11 @@ void gra(std::vector<Karta> &talia){
         talia.pop_back();
         }  
     }
-    wyswietlanie(kupka, kupka_koncowa, odkladanie); 
     int ZJakiej;
     int naJaka;
     bool kupkaCzyNie;
+    int ile = 0;
+    wyswietlanie(kupka, kupka_koncowa, odkladanie, ile); 
     while (wygrana(kupka_koncowa))
     {
     std::cin >> ZJakiej;
@@ -204,8 +206,14 @@ void gra(std::vector<Karta> &talia){
        if((kartaW_rece.pobierzwartosc() == kupka[naJaka].back().pobierzwartosc() - 1) || kupka[naJaka].empty()){
             if(kartaW_rece.pobierzkolor() != kupka[naJaka].back().pobierzkolor()){
                 kupka[naJaka].push_back(kartaW_rece);
-                if(kupkaCzyNie) kupka[ZJakiej].pop_back();
-                else odkladanie[ZJakiej].przypiszwartosc(0);
+                if(kupkaCzyNie){
+                    kupka[ZJakiej].pop_back();
+                    ile++;
+                }
+                else{
+                    odkladanie[ZJakiej].przypiszwartosc(0);
+                    ile++;
+                }
             }
             else continue;
        }
@@ -224,21 +232,32 @@ void gra(std::vector<Karta> &talia){
         if(kartaW_rece.pobierzwartosc() == kupka_koncowa[naJaka].pobierzwartosc() + 1){
             if(kartaW_rece.pobierzwartosc() == 1){
                 kupka_koncowa[naJaka] = kartaW_rece;
-                if(kupkaCzyNie) kupka[ZJakiej].pop_back();
-                else odkladanie[ZJakiej].przypiszwartosc(0);
-
+                if(kupkaCzyNie){
+                    kupka[ZJakiej].pop_back();
+                    ile++;
+                }
+                else{
+                    odkladanie[ZJakiej].przypiszwartosc(0);
+                    ile++;
+                }
             }
             else if(char(kartaW_rece.pobierzznak()) == char(kupka_koncowa[naJaka].pobierzznak())){
                 kupka_koncowa[naJaka] = kartaW_rece;
-                if(kupkaCzyNie) kupka[ZJakiej].pop_back();
-                else odkladanie[ZJakiej].przypiszwartosc(0);
+                if(kupkaCzyNie){
+                    kupka[ZJakiej].pop_back();
+                    ile++;
+                }
+                else{
+                    odkladanie[ZJakiej].przypiszwartosc(0);
+                    ile++;
+                }
             }
             else continue;
         }
         else continue;
     }
     else continue;
-    wyswietlanie(kupka, kupka_koncowa, odkladanie); 
+    wyswietlanie(kupka, kupka_koncowa, odkladanie, ile); 
     }
   
 }
@@ -279,7 +298,7 @@ void piszmenu(int a){
             cout << "2 - Sterowanie" << endl;
             cout << "0 - Wyjscie" << endl;
             cout << "" << endl;
-            cout << "Michał Sojka, Bartosz Twardowski" << endl;
+            cout << "Michal Sojka, Bartosz Twardowski" << endl;
             cout << "ACiR 3, sem.2 2023" << endl;
             break;
         case 2:
@@ -297,7 +316,7 @@ void piszmenu(int a){
             cout << "ACiR 3, sem.2 2023" << endl;
         default:
             break;
-        }
+    }
 }
 
 void inicjalizacjaTalii(std::vector<Karta> &talia){
