@@ -201,7 +201,7 @@ void gra(std::vector<Karta> &talia){
 
     //odkladanie karty na inna kupke
     if(naJaka >= 0 && naJaka <= 7){ //na kupke kart
-       if(kartaW_rece.pobierzwartosc() == kupka[naJaka].back().pobierzwartosc() - 1 ){
+       if((kartaW_rece.pobierzwartosc() == kupka[naJaka].back().pobierzwartosc() - 1) || kupka[naJaka].empty()){
             if(kartaW_rece.pobierzkolor() != kupka[naJaka].back().pobierzkolor()){
                 kupka[naJaka].push_back(kartaW_rece);
                 if(kupkaCzyNie) kupka[ZJakiej].pop_back();
