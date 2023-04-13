@@ -1,6 +1,5 @@
 //Tasowanie w osobnym wątku (std::thread i std::ref)
 
-
 #include <iostream>
 #include <vector>
 #include <thread>           //std:thread
@@ -9,7 +8,6 @@
 #include <iterator>
 #include <random>
 #include <iomanip>
-//#include "menu.hpp"
 
 const int ik = 8;
 
@@ -25,22 +23,9 @@ public:
     char pobierzznak() { return znak; }
     int pobierzwartosc() { return wartosc; }
 
-    void przypiszkolor(int kolorek) {    //// !!!!!!!!!!! do poprawy (rozdzielic  na Karta::funkcja.............)
-        kolor = kolorek;
-    }
-    void przypiszznak(int znaczek) {
-        if (znaczek == 0)
-            znak = 's';  // kier (serce)
-        else if (znaczek == 1)
-            znak = 'k';  // karo
-        else if (znaczek == 2)
-            znak = 'p';  // pik
-        else if (znaczek == 3)
-            znak = 't';  //trefl
-    }
-    void przypiszwartosc(int warto) {
-            wartosc = warto;
-    }
+    void przypiszkolor(int kolorek);
+    void przypiszznak(int znaczek);
+    void przypiszwartosc(int warto);
 
 private:
     int kolor;
@@ -48,14 +33,29 @@ private:
     int wartosc;
 };
 Karta::Karta() {
-    std::cout << "siema" << std::endl;
     kolor = '0';
     znak = '0';
     wartosc = '0';
 }
 Karta::~Karta() {
-    std::cout << " ";
 }
+void Karta::przypiszkolor(int kolorek){
+    kolor = kolorek;
+}
+void Karta::przypiszznak(int znaczek) {
+    if (znaczek == 0)
+        znak = 's';  // kier (serce)
+    else if (znaczek == 1)
+        znak = 'k';  // karo
+    else if (znaczek == 2)
+        znak = 'p';  // pik
+    else if (znaczek == 3)
+        znak = 't';  //trefl
+}
+void Karta::przypiszwartosc(int warto) {
+    wartosc = warto;
+}
+
 bool wygrana(Karta kupka_docelowa[4]){
      int w = 0;
     for(int i = 0; i < 4; i++)
@@ -130,14 +130,14 @@ void wyswietlanie(std::vector<Karta> kupka[ik], Karta kupka_docelowa[4], Karta o
     cout <<"  -------------------------------------------------" << endl;
     cout <<"  -------------------------------------------------" << endl;
 
-    for(int j = 0; j < 8; j++){
+    for(int j = 0; j < ik; j++){
         if(max < kupka[j].size())
         max = kupka[j].size();
     }
     
     for(int i = 0; i < max; i++){
         cout << "  | ";
-        for(int j = 0; j < 8; j++){
+        for(int j = 0; j < ik; j++){
             if(kupka[j].size() > i){                    //mozliwe wycieki
                 wyswietlwartosci(kupka[j][i].pobierzwartosc());
                 //wyswietlznaczki(kupka[j][i].pobierzznak());
@@ -165,7 +165,7 @@ void gra(std::vector<Karta> &talia){
         odkladanie[i].przypiszwartosc(0);
         kupka_koncowa[i].przypiszwartosc(0);
     }
-    for(int i = 0; i < 8; i++){
+    for(int i = 0; i < ik; i++){
         int ile = 7;
         if(i > 3) ile = 6;
         for(int j = 0; j < ile; j++){
