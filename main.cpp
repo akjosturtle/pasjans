@@ -191,8 +191,9 @@ void gra(std::vector<Karta> &talia){
         kupkaCzyNie = true;
     }
     else if(ZJakiej > 7 && ZJakiej < 12){
-        if(odkladanie[ZJakiej-8].pobierzwartosc()!=0){
-            kartaW_rece = odkladanie[ZJakiej-8];
+        ZJakiej -= ik;
+        if(odkladanie[ZJakiej].pobierzwartosc()!=0){
+            kartaW_rece = odkladanie[ZJakiej];
             kupkaCzyNie = false;
         }
     }
@@ -211,22 +212,24 @@ void gra(std::vector<Karta> &talia){
        else continue;
     }
     else if(naJaka > 7 && naJaka < 12){ //na kupke pomocniczą
-        if(odkladanie[naJaka-8].pobierzwartosc()==0){
-            odkladanie[naJaka-8] = kartaW_rece;
+        naJaka -= ik;
+        if(odkladanie[naJaka].pobierzwartosc()==0){
+            odkladanie[naJaka] = kartaW_rece;
             if(kupkaCzyNie) kupka[ZJakiej].pop_back();
             else odkladanie[ZJakiej].przypiszwartosc(0);
         }
     }
     else if(naJaka >= 12 && naJaka <= 15){ //na kupke koncowa
+        naJaka -= 12;
         if(kartaW_rece.pobierzwartosc() == kupka_koncowa[naJaka-12].pobierzwartosc() + 1){
             if(kartaW_rece.pobierzwartosc() == 1){
-                kupka_koncowa[naJaka-12] = kartaW_rece;
+                kupka_koncowa[naJaka] = kartaW_rece;
                 if(kupkaCzyNie) kupka[ZJakiej].pop_back();
                 else odkladanie[ZJakiej].przypiszwartosc(0);
 
             }
             else if(char(kartaW_rece.pobierzznak()) == char(kupka_koncowa[naJaka-12].pobierzznak())){
-                kupka_koncowa[naJaka-12] = kartaW_rece;
+                kupka_koncowa[naJaka] = kartaW_rece;
                 if(kupkaCzyNie) kupka[ZJakiej].pop_back();
                 else odkladanie[ZJakiej].przypiszwartosc(0);
             }
