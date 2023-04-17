@@ -182,17 +182,17 @@ void gra(std::vector<Karta> &talia){
     while (wygrana(kupka_koncowa))
     {
     std::cin >> ZJakiej;
-    while(!(std::cin>>ZJakiej)){
-        std::cin.clear();
-        std::cin.sync();
-    }
+    // while(!(std::cin>>ZJakiej)){
+    //     std::cin.clear();
+    //     std::cin.sync();
+    // }
     if(ZJakiej == 999)
         break;
     std::cin >> naJaka;
-    while(!(std::cin>>naJaka)){
-        std::cin.clear();
-        std::cin.sync();
-    }
+    // while(!(std::cin>>naJaka)){
+    //     std::cin.clear();
+    //     std::cin.sync();
+    // }
     Karta kartaW_rece;
 
     //branie karty z kupki
