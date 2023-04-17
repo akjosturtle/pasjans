@@ -231,8 +231,14 @@ void gra(std::vector<Karta> &talia){
         naJaka -= ik;
         if(odkladanie[naJaka].pobierzwartosc()==0){
             odkladanie[naJaka] = kartaW_rece;
-            if(kupkaCzyNie) kupka[ZJakiej].pop_back();
-            else odkladanie[ZJakiej].przypiszwartosc(0);
+            if(kupkaCzyNie){
+                kupka[ZJakiej].pop_back();
+                ile++;
+            }
+            else{
+                odkladanie[ZJakiej].przypiszwartosc(0);
+                ile++;
+            }
         }
     }
     else if(naJaka > 11 && naJaka <= 15){ //na kupke koncowa
